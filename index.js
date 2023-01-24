@@ -1,7 +1,11 @@
 //import express from 'express';
 
 const express = require("express");
+const { default: mongoose } = require("mongoose");
+const keys = require("./config.keys");
 require("./services/passport");
+
+mongoose.connect(keys.mongoURI);
 const app = express(); //will listen to incoming req. and sends out responses
 
 require("./routes/authRoutes")(app);
