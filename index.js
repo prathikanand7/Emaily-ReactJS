@@ -3,8 +3,8 @@
 const express = require("express");
 const { default: mongoose } = require("mongoose");
 const keys = require("./config.keys");
-require("./services/passport");
 require("./models/user");
+require("./services/passport");
 
 mongoose.connect(keys.mongoURI); //connecting mongoDB database
 const app = express(); //will listen to incoming req. and sends out responses
