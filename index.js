@@ -1,11 +1,12 @@
 //import express from 'express';
-
+//importing files here
 const express = require("express");
 const { default: mongoose } = require("mongoose");
 const keys = require("./config.keys");
 require("./services/passport");
+require("./models/user");
 
-mongoose.connect(keys.mongoURI);
+mongoose.connect(keys.mongoURI); //connecting mongoDB database
 const app = express(); //will listen to incoming req. and sends out responses
 
 require("./routes/authRoutes")(app);
