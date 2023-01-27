@@ -12,7 +12,17 @@ passport.use(
       callbackURL: "/auth/google/callback",
     },
     (accessToken, refreshToken, profile, done) => {
-      new User({ googleId: profile.id }).save();
+      User.findOne({ googleId: profile.id }).then((exisingUser) => {
+        if (exisingUser) {
+          //we already have a record with given profileID
+          done(null, exisingUser);
+        } else {
+          //we dont have this user record and so need to make a new user
+          new User({ googleId: profile.id })
+            .save()
+            .then((user) => done(null, user));
+        }
+      });
     }
   )
 ); //creates a new instance of google strategy for OAuth
