@@ -4,6 +4,20 @@ const keys = require("../config/keys"); // no need to add .js if its a js file
 const mongoose = require("mongoose");
 const User = mongoose.model("user");
 
+//managing cookies
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id).then((user) => {
+    done(null, user);
+  });
+});
+
+//passport needs to be told to use these cookies
+
+//passport function handler to handle google OAuth
 passport.use(
   new GoogleStrategy(
     {

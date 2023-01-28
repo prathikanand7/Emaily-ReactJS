@@ -3,11 +3,20 @@
 const express = require("express");
 const { default: mongoose } = require("mongoose");
 const keys = require("./config.keys");
+const cookieSession = require("cookie-session"); //gives access to cookies
+const passport = require("passport"); // handles cookies
 require("./models/user");
 require("./services/passport");
 
 mongoose.connect(keys.mongoURI); //connecting mongoDB database
 const app = express(); //will listen to incoming req. and sends out responses
+
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000, //30days 24hrs 60mins 60secs 1000milliseconds
+    keys: [keys.cookieKey],
+  })
+);
 
 require("./routes/authRoutes")(app);
 //need to go to console.cloud.google.com to create OAuth strategy
