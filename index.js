@@ -18,6 +18,9 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 require("./routes/authRoutes")(app);
 //need to go to console.cloud.google.com to create OAuth strategy
 
